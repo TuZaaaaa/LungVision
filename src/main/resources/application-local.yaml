@@ -8,6 +8,8 @@ spring:
     url: jdbc:mysql://localhost:3306/db_vision
     username: root
     password: root
+    hikari:
+      max-lifetime: 600000
   data:
     mongodb:
       uri: mongodb://localhost:27017/lung_mongo
