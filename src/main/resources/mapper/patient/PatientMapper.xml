@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rabbit.lungvision.patient.mapper.PatientMapper">
+    <select id="selectAll" resultType="com.rabbit.lungvision.patient.entity.Patient">
+        select * from patient where status = 'ENABLE';
+    </select>
+    <select id="selectByName" resultType="com.rabbit.lungvision.patient.entity.Patient">
+        select * from patient where name like CONCAT('%', #{name}, '%')  and status = 'ENABLE';
+    </select>
+    <insert id="insert">
+        insert into patient (name, age, gender, status) values (#{patient.name}, #{patient.age}, #{patient.gender}, 'ENABLE')
+    </insert>
+    <update id="update">
+        update patient set name = #{patient.name}, age = #{patient.age}, gender = #{patient.gender} where id = #{patient.id} and status = 'ENABLE';
+    </update>
+    <update id="batchDelete">
+        update patient set status = 'DISABLE' where id in
+        <foreach collection="idList" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>
