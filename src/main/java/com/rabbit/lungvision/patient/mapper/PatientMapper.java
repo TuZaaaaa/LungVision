@@ -13,6 +13,8 @@ public interface PatientMapper {
 
      List<Patient> selectByName(@Param("name") String name);
 
+     List<Patient> selectById(@Param("id") int id);
+
      void insert(@Param("patient") Patient patient);
 
      void update(@Param("patient") Patient patient);

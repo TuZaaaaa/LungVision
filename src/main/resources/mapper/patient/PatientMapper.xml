@@ -7,6 +7,9 @@
     <select id="selectByName" resultType="com.rabbit.lungvision.patient.entity.Patient">
         select * from patient where name like CONCAT('%', #{name}, '%')  and status = 'ENABLE';
     </select>
+    <select id="selectById" resultType="com.rabbit.lungvision.patient.entity.Patient">
+        select * from patient where id = #{id} and status = 'ENABLE';
+    </select>
     <insert id="insert">
         insert into patient (name, age, gender, status) values (#{patient.name}, #{patient.age}, #{patient.gender}, 'ENABLE')
     </insert>

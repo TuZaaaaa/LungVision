@@ -1,6 +1,8 @@
 package com.rabbit.lungvision.study.service.impl;
 
 import com.rabbit.lungvision.common.Result;
+import com.rabbit.lungvision.patient.entity.Patient;
+import com.rabbit.lungvision.patient.mapper.PatientMapper;
 import com.rabbit.lungvision.study.entity.Study;
 import com.rabbit.lungvision.study.mapper.StudyMapper;
 import com.rabbit.lungvision.study.service.StudyService;
@@ -16,6 +18,9 @@ public class StudyServiceImpl implements StudyService {
     @Autowired
     StudyMapper studyMapper;
 
+    @Autowired
+    PatientMapper patientMapper;
+
     @Override
     public Result<List<Study>> list() {
         List<Study> studies = studyMapper.selectAll();
@@ -30,6 +35,10 @@ public class StudyServiceImpl implements StudyService {
 
     @Override
     public Result<Void> insert(Study study) {
+        List<Patient> patients = patientMapper.selectById(study.getPatientId());
+        if (patients.isEmpty()) {
+            return Result.error("请选择可用的患者编码");
+        }
         study.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         studyMapper.insert(study);
         return Result.success();
