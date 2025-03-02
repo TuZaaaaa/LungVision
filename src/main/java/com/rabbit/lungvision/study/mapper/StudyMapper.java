@@ -20,4 +20,5 @@ public interface StudyMapper {
 
      void batchDelete(@Param("idList") int[] idList);
 
+     List<Study> queryByPatientIdList(@Param("patientIdList") List<Integer> patientIdList);
 }

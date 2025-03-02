@@ -7,6 +7,12 @@
     <select id="selectByPatientId" resultType="com.rabbit.lungvision.study.entity.Study">
         select * from study where patient_id like CONCAT('%', #{studyId}, '%')  and status = 'ENABLE';
     </select>
+    <select id="queryByPatientIdList" resultType="com.rabbit.lungvision.study.entity.Study">
+        select * from study where id in
+        <foreach collection="patientIdList" item="patientId" open="(" separator="," close=")">
+            #{patientId}
+        </foreach>
+    </select>
     <insert id="insert">
         insert into study (patient_id, study_date, description, pixel_sum, created_at, status) values (#{study.patientId}, #{study.studyDate}, #{study.description}, #{study.pixelSum}, #{study.createdAt}, 'ENABLE')
     </insert>

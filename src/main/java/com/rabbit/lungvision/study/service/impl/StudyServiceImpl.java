@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -57,4 +58,10 @@ public class StudyServiceImpl implements StudyService {
         studyMapper.batchDelete(idList);
         return Result.success();
     }
+
+    @Override
+    public List<Study> queryByPatientIdList(List<Integer> patientIdList) {
+        return studyMapper.queryByPatientIdList(patientIdList);
+    }
+
 }

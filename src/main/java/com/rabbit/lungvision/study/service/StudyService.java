@@ -19,4 +19,6 @@ public interface StudyService {
     Result<Void> update(Study study);
 
     Result<Void> delete(int[] idList);
+
+    List<Study> queryByPatientIdList(List<Integer> patientIdList);
 }

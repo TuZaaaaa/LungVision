@@ -21,4 +21,5 @@ public interface PatientMapper {
 
      void batchDelete(@Param("idList") int[] idList);
 
+     List<Patient> selectByIdList(@Param("idList") int[] idList);
 }
