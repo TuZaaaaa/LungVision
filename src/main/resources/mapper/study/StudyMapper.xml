@@ -5,7 +5,7 @@
         select * from study where status = 'ENABLE';
     </select>
     <select id="selectByPatientId" resultType="com.rabbit.lungvision.study.entity.Study">
-        select * from study where patient_id like CONCAT('%', #{studyId}, '%')  and status = 'ENABLE';
+        select * from study where patient_id = #{patientId} and status = 'ENABLE';
     </select>
     <select id="queryByPatientIdList" resultType="com.rabbit.lungvision.study.entity.Study">
         select * from study where id in
