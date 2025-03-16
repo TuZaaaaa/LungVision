@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,12 +39,14 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Result<Void> insert(Patient patient) {
+        patient.setCreatedAt(LocalDateTime.now());
         patientMapper.insert(patient);
         return Result.success();
     }
 
     @Override
     public Result<Void> update(Patient patient) {
+        patient.setUpdatedAt(LocalDateTime.now());
         patientMapper.update(patient);
         return Result.success();
     }

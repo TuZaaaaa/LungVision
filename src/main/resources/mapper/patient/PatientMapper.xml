@@ -17,10 +17,10 @@
         </foreach>
     </select>
     <insert id="insert">
-        insert into patient (name, age, gender, status) values (#{patient.name}, #{patient.age}, #{patient.gender}, 'ENABLE')
+        insert into patient (name, age, gender, created_at, status) values (#{patient.name}, #{patient.age}, #{patient.gender}, #{patient.createdAt}, 'ENABLE')
     </insert>
     <update id="update">
-        update patient set name = #{patient.name}, age = #{patient.age}, gender = #{patient.gender} where id = #{patient.id} and status = 'ENABLE';
+        update patient set name = #{patient.name}, age = #{patient.age}, gender = #{patient.gender}, updated_at = #{patient.updatedAt} where id = #{patient.id} and status = 'ENABLE';
     </update>
     <update id="batchDelete">
         update patient set status = 'DISABLE' where id in
