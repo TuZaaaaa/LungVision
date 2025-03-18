@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rabbit.lungvision.dashboard.mapper.DashboardMapper">
+    <select id="getPanelGroup" resultType="com.rabbit.lungvision.dashboard.entity.PanelGroup">
+        select
+            (select count(*) from patient where status = "ENABLE") as patientCount,
+            (select count(*) from study where status = "ENABLE") as studyCount,
+            (select count(*) from task where status = "ENABLE") as taskCount,
+
+            (SELECT
+            ROUND((today_count - yesterday_count) * 100.0 / yesterday_count, 2)
+            FROM (
+            SELECT
+            (SELECT COUNT(*) FROM patient WHERE status = "ENABLE") AS today_count,
+            (SELECT COUNT(*) FROM patient WHERE status = "ENABLE" and DATE(created_at) &lt; CURDATE()) AS yesterday_count
+            ) AS counts) AS patient_increase,
+
+            (SELECT
+            ROUND((today_count - yesterday_count) * 100.0 / yesterday_count, 2)
+            FROM (
+            SELECT
+            (SELECT COUNT(*) FROM study WHERE status = "ENABLE") AS today_count,
+            (SELECT COUNT(*) FROM study WHERE status = "ENABLE" and DATE(created_at) &lt; CURDATE()) AS yesterday_count
+            ) AS counts) AS study_increase,
+
+            (SELECT
+            ROUND((today_count - yesterday_count) * 100.0 / yesterday_count, 2)
+            FROM (
+            SELECT
+            (SELECT COUNT(*) FROM task WHERE status = "ENABLE") AS today_count,
+            (SELECT COUNT(*) FROM task WHERE status = "ENABLE" and DATE(created_at) &lt; CURDATE()) AS yesterday_count
+            ) AS counts) AS task_increase;
+    </select>
+    <select id="getPatientAgeChart" resultType="com.rabbit.lungvision.dashboard.entity.PatientAgeChart">
+        SELECT
+        (select count(*) FROM patient where status = "ENABLE" and age &lt;= 14) as youth_num,
+        (select count(*) FROM patient where status = "ENABLE" and age between 15 and 65) as adult_num,
+        (select count(*) FROM patient where status = "ENABLE" and age > 65) as elderly_num;
+    </select>
+    <select id="getImageProcessingChart" resultType="com.rabbit.lungvision.dashboard.entity.ImageProcessChart">
+        select id as task_id, TIMESTAMPDIFF(SECOND, created_at, finished_at) as consumed_time from task where status = "ENABLE" and type = "PROCESS" and task_status = "FINISHED" ORDER BY finished_at desc limit 20;
+    </select>
+</mapper>
