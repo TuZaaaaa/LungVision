@@ -14,7 +14,7 @@
         </foreach>
     </select>
     <insert id="insert">
-        insert into study (patient_id, study_date, description, pixel_sum, created_at, status) values (#{study.patientId}, #{study.studyDate}, #{study.description}, #{study.pixelSum}, #{study.createdAt}, 'ENABLE')
+        insert into study (patient_id, study_date, description, pixel_p_sum, pixel_v_sum, process_status, created_at, status) values (#{study.patientId}, #{study.studyDate}, #{study.description}, #{study.pixelPSum}, #{study.pixelVSum}, #{study.processStatus}, #{study.createdAt}, 'ENABLE')
     </insert>
     <update id="update">
         update study set patient_id = #{study.patientId}, study_date = #{study.studyDate}, description = #{study.description}, updated_at = #{study.updatedAt} where id = #{study.id} and status = 'ENABLE';

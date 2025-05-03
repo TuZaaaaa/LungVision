@@ -41,6 +41,11 @@ public class StudyServiceImpl implements StudyService {
             return Result.error("请选择可用的患者编码");
         }
         study.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+        study.setPixelPSum(0);
+        study.setPixelVSum(0);
+        study.setProcessStatus("未导入");
+        study.setFileNum(0);
+        study.setExecuteTime(0F);
         studyMapper.insert(study);
         return Result.success();
     }

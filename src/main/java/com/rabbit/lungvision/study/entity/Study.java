@@ -12,7 +12,12 @@ public class Study {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp studyDate;
     private String description;
-    private int pixelSum;
+    private int pixelPSum;
+    private int pixelVSum;
+    private float ventilationPerfusionRatio;
+    private String processStatus;
+    private int fileNum;
+    private float executeTime;
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private String status;
